@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>策略模式</title>
+</head>
+
+<body>
+    <!-- 具体场景规则 例如：商品价格问题-->
+    <!-- 
+        1、商品小于100时 在当前商品价格基础上享受20%的优惠折扣 
+        2、商品大于200并且价格小于200时折扣20， 商品大于等于200折扣50，否则折扣20%
+        3、商品价格没有任何促销活动
+    -->
+    <!-- 抛开正常 if-else 方式解决当前场景  直接使用策略模式解决 -->
+    <script>
+        const priceStrategies={
+            default:defaultPrice,
+            Price100,
+            Price100or200
+        }
+        /**
+        * 商品没有任何优惠时 默认的价格
+        */
+        function defaultPrice (origialPrice) {
+            return origialPrice
+        }
+        /**
+         * 商品小于100时 在当前商品价格基础上享受20%的优惠折扣 
+        */
+        function Price100 (origialPrice) {
+            if (origialPrice < 100) {
+                return origialPrice * 0.8
+            }else{
+                origialPrice
+            }
+        }
+        /**
+         * 商品大于200并且价格小于200时折扣20， 商品大于等于200折扣50，否则折扣20%
+        */
+        function Price100or200 (origialPrice) {
+            if (origialPrice >= 100 && origialPrice < 200) {
+                return origialPrice - 20;
+            } else if (originalPrice >= 200) {
+                return originalPrice - 50;
+            } else {
+                return originalPrice * 0.8;
+            }
+        }
+
+
+        function getPrice(status="Price100or200", Price=150) {
+            return priceStrategies[status](Price);
+        }
+    console.log(getPrice('Price100or200',150));
+    </script>
+</body>
+
+</html>
