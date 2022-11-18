@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单例模式</title>
+</head>
+
+<body>
+    <script>
+        // function User (name) {
+        //     if (!(this instanceof User)) {
+        //         // console.log(this,'1');
+        //         return
+        //     }
+        //     if (!User._instance) {
+        //         // console.log(this,'2');
+        //         this.name = name
+        //         User._instance = this
+        //     }
+        //     return User._instance
+        // }
+
+        // const u1 = new User('李四')
+        // const u2 = new User('李四')
+
+        // console.log(u1, u2);// true\
+
+        class User {
+            constructor() {
+                if (new.target !== User) {
+                    return
+                }
+                if (!User._instance) {
+                    this.name = 'xm'
+                    User._instance = this
+                }
+                console.log(User._instance);
+                return User._instance
+            }
+        }
+
+        const u1 = new User()
+        const u2 = new User()
+        console.log(u1 === u2);
+
+    </script>
+</body>
+
+</html>
